@@ -25,9 +25,7 @@ export default Base.extend({
       console.log(options)
       window.gtag('event', 'page_view', {
         page_title: options.title,
-        page_location: window.location.href,
-        page_path: options.page,
-        send_to: 'GA_MEASUREMENT_ID'
+        page_path: options.page
       })
     }
   },
