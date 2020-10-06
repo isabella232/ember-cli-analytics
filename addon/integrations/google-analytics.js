@@ -2,7 +2,6 @@ import $ from 'jquery'
 
 import Base from 'ember-cli-analytics/integrations/base'
 import canUseDOM from 'ember-cli-analytics/utils/can-use-dom'
-import without from 'ember-cli-analytics/utils/without'
 
 import { assert } from '@ember/debug'
 import { get } from '@ember/object'
@@ -22,12 +21,14 @@ export default Base.extend({
    *   Options to send the analytics engine.
    */
   trackPage (options = {}) {
-    const sendEvent = { hitType: 'pageview' }
-    const event = assign({}, sendEvent, options)
-
     if (canUseDOM) {
       console.log(options)
-      window.gtag('config', 'GA_MEASUREMENT_ID', event)
+      window.gtag('event', 'page_view', {
+        page_title: options.title,
+        page_location: window.location.href,
+        page_path: options.page,
+        send_to: 'GA_MEASUREMENT_ID'
+      })
     }
   },
 
