@@ -103,7 +103,6 @@ export default Base.extend({
   insertTag: on('init', function () {
     const config = get(this, 'config')
     const { id, remarketing, ecommerce, enhancedEcommerce, set } = assign({}, config)
-    const properties = without(config, 'id', 'remarketing', 'ecommerce', 'enhancedEcommerce', 'set')
 
     assert('You must pass a valid `id` to the GoogleAnaltics adapter', id)
 
@@ -121,13 +120,8 @@ export default Base.extend({
         window.dataLayer = window.dataLayer || []
         window.gtag = function () { window.dataLayer.push(arguments) }
         window.gtag('js', new Date())
+        window.gtag('config', id)
       })()
-    }
-
-    if (isPresent(Object.keys(properties))) {
-      window.gtag('config', id, properties)
-    } else {
-      window.gtag('config', id, 'auto')
     }
 
     if (remarketing) {
