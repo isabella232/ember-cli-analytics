@@ -9,7 +9,6 @@ import { get } from '@ember/object'
 import { on } from '@ember/object/evented'
 import { assign } from '@ember/polyfills'
 import { capitalize } from '@ember/string'
-import { isPresent } from '@ember/utils'
 
 export default Base.extend({
 
@@ -27,7 +26,8 @@ export default Base.extend({
     const event = assign({}, sendEvent, options)
 
     if (canUseDOM) {
-      window.gtag('send', event)
+      console.log(options)
+      window.gtag('config', 'GA_MEASUREMENT_ID', event)
     }
   },
 
@@ -64,7 +64,7 @@ export default Base.extend({
     const event = assign({}, sendEvent, gaEvent)
 
     if (canUseDOM) {
-      window.gtag('send', event)
+      window.gtag('event', event)
     }
   },
 
